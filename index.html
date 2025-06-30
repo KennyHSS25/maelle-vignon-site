@@ -765,14 +765,25 @@
                 });
             }
             
-            // Préloader
-            window.addEventListener('load', function() {
-                const preloader = document.querySelector('.preloader');
-                setTimeout(() => {
+            // Préloader - solution améliorée pour Android
+            const preloader = document.querySelector('.preloader');
+            let loaded = false;
+            
+            function hidePreloader() {
+                if (!loaded) {
+                    loaded = true;
                     preloader.style.opacity = '0';
                     preloader.style.visibility = 'hidden';
-                }, 1000);
+                }
+            }
+            
+            // Événement quand toute la page est chargée
+            window.addEventListener('load', function() {
+                hidePreloader();
             });
+            
+            // Délai de secours au cas où l'événement load ne se déclenche pas
+            setTimeout(hidePreloader, 3000);
         });
     </script>
 </body>
