@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours | Maëlle Vignon</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Barre de progression du scroll -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+    <a href="index.html" class="logo">
+        <img src="assets/images/portraits/maelle-profil.png" alt="Maëlle Vignon">
+    </a>
+    <div class="nav-links">
+        <a href="index.html">Accueil</a>
+        <a href="parcours.html">Parcours</a>
+        <a href="realisations.html">Réalisations</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    <div class="burger">
+        <i class="fas fa-bars"></i>
+    </div>
+</nav>
+
+    <!-- Section Parcours -->
+    <section class="section parcours-section">
+        <div class="section-title">
+            <h2>Parcours & Compétences</h2>
+            <p>Découvrez mon parcours académique et professionnel</p>
+        </div>
+        
+        <div class="timeline-container">
+            <!-- Timeline Item 1 -->
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-date">2022 — 2024</div>
+                <div class="timeline-content">
+                    <h3>Chargée de développement commercial territorial</h3>
+                    <div class="timeline-company">Mairie de Roanne — Direction du développement économique</div>
+                    <p>À la croisée des enjeux sociaux, économiques et urbains, pilotage des dispositifs de dynamisation commerciale locale.</p>
+                    <ul>
+                        <li>Coordination d'un programme de redynamisation des commerces de proximité</li>
+                        <li>Diagnostic des besoins locaux avec les commerçants et habitants</li>
+                        <li>Animation de partenariats public/privé</li>
+                    </ul>
+                    <div class="timeline-result">
+                        <strong>Résultat :</strong> +18% de fréquentation en cœur de ville en un an, création de 7 nouveaux commerces accompagnés.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Timeline Item 2 -->
+            <div class="timeline-item" data-aos="fade-left">
+                <div class="timeline-date">2019 — 2021</div>
+                <div class="timeline-content">
+                    <h3>Responsable adjointe de point de vente</h3>
+                    <div class="timeline-company">Orange – Agence commerciale de Montpellier-Sud</div>
+                    <p>Immersion dans la vente, la technique et le management d'équipe terrain.</p>
+                    <ul>
+                        <li>Encadrement d'une équipe de 6 personnes</li>
+                        <li>Vente directe de services télécoms</li>
+                        <li>Mise en place d'une offre dédiée aux professionnels en mobilité</li>
+                    </ul>
+                    <div class="timeline-result">
+                        <strong>Résultat :</strong> magasin classé dans le top 5 régional sur la satisfaction client pendant 6 mois consécutifs.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Ajouter d'autres éléments de timeline ici -->
+        </div>
+        
+        <!-- Compétences -->
+        <div class="skills-container">
+            <div class="skills-category">
+                <h3><i class="fas fa-laptop-code"></i> Compétences techniques</h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">QGIS / Cartographie</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                        <div class="skill-level">Avancé</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">Suite Adobe</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                        <div class="skill-level">Intermédiaire</div>
+                    </div>
+                    <!-- Ajouter d'autres compétences -->
+                </div>
+            </div>
+            
+            <div class="skills-category">
+                <h3><i class="fas fa-language"></i> Langues</h3>
+                <div class="languages-grid">
+                    <div class="language-item">
+                        <div class="language-name">Français</div>
+                        <div class="language-level">Langue maternelle</div>
+                    </div>
+                    <div class="language-item">
+                        <div class="language-name">Anglais</div>
+                        <div class="language-level">Courant (TOEIC 865)</div>
+                    </div>
+                    <!-- Ajouter d'autres langues -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- Soft Skills -->
+        <div class="softskills-container">
+            <h3><i class="fas fa-brain"></i> Soft Skills</h3>
+            <div class="softskills-grid">
+                <div class="softskill-item">Rigueur & gestion des priorités</div>
+                <div class="softskill-item">Esprit d'analyse territoriale</div>
+                <div class="softskill-item">Communication orale</div>
+                <div class="softskill-item">Sens du service client</div>
+                <div class="softskill-item">Adaptabilité</div>
+                <div class="softskill-item">Collaboration</div>
+            </div>
+        </div>
+        
+        <!-- Citation -->
+        <div class="quote-section">
+            <blockquote>"L'intime et le territoire sont faits du même vent."</blockquote>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/animations.js"></script>
+
+  <footer>
+    <div class="footer-content">
+        <div class="footer-logo">
+            <img src="assets/images/portraits/maelle-profil.png" alt="Maëlle Vignon">
+        </div>
+        <div class="footer-links">
+            <a href="index.html">Accueil</a>
+            <a href="parcours.html">Parcours</a>
+            <a href="realisations.html">Réalisations</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="copyright">
+            © 2023 Maëlle Vignon. Tous droits réservés.
+        </div>
+    </div>
+</footer>
+  
+</body>
+</html>

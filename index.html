@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maëlle Vignon | Développement territorial & stratégie commerciale</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Variables CSS globales */
+        :root {
+            /* Nouveau dégradé bleu ciel uniquement */
+            --background: linear-gradient(135deg, #87CEEB, #E0F7FA);
+            
+            /* Navbar avec dégradé jaune/vert/bleu */
+            --navbar-gradient: linear-gradient(45deg, #FFD700, #00FF7F, #00BFFF);
+            
+            /* Couleurs de texte */
+            --text: #2C3E50;
+            --text-light: #FFFFFF;
+            
+            /* Boutons noir sur blanc */
+            --btn-text: #2C3E50;
+            --btn-bg: #FFFFFF;
+            
+            /* Accents */
+            --accent-red: #ff003c;
+            --accent-green: #00ff9d;
+            --accent-blue: #00BFFF;
+            
+            /* Arrière-plan des sections */
+            --light-bg: rgba(255, 255, 255, 0.85);
+            
+            /* Bordures */
+            --border: rgba(44, 62, 80, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background);
+            background-attachment: fixed;
+            background-size: cover;
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Préloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader-logo {
+            display: flex;
+            gap: 10px;
+        }
+
+        .logo-letter {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            animation: bounce 1.5s infinite alternate;
+        }
+
+        .logo-letter:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-20px); }
+        }
+
+        /* Barre de progression du scroll */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: transparent;
+            z-index: 1001;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--accent-blue);
+            width: 0%;
+            transition: width 0.2s ease-out;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: var(--navbar-gradient);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo img {
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-green);
+            transition: transform 0.3s ease;
+        }
+
+        .logo img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-blue);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-light);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+            background: var(--text-light);
+        }
+
+        .burger {
+            display: none;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        /* Hero Section - Optimisée pour une meilleure gestion de l'espace */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            padding: 120px 2rem 5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background: linear-gradient(135deg, #6bb1d8, #a8d8f0);
+        }
+
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            gap: 4rem;
+        }
+
+        .hero-content {
+            flex: 1;
+            text-align: left;
+            z-index: 20;
+            max-width: 600px;
+        }
+
+        .hero-image-container {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 
+                0 0 0 8px rgba(255, 255, 255, 0.3),
+                0 0 0 16px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(0, 0, 0, 0.3);
+            animation: float 8s infinite ease-in-out;
+            transition: all 0.5s ease;
+            flex-shrink: 0;
+        }
+
+        .hero-image-container:hover {
+            transform: scale(1.05);
+            box-shadow: 
+                0 0 0 10px rgba(255, 255, 255, 0.4),
+                0 0 0 20px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s ease;
+        }
+
+        .hero-image-container:hover .hero-image {
+            transform: scale(1.1) rotate(1deg);
+            filter: brightness(1.05) contrast(1.1);
+        }
+
+        .frame-effect {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 
+                inset 0 0 20px rgba(255, 255, 255, 0.8),
+                inset 0 0 40px rgba(255, 255, 255, 0.5);
+            animation: pulse 4s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        .light-effect {
+            position: absolute;
+            top: -30%;
+            left: -30%;
+            width: 160%;
+            height: 160%;
+            background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%);
+            animation: rotate 20s infinite linear;
+            pointer-events: none;
+        }
+
+        /* Animations spécifiques */
+        @keyframes float {
+            0%, 100% { 
+                transform: translateY(0); 
+                box-shadow: 
+                    0 0 0 8px rgba(255, 255, 255, 0.3),
+                    0 0 0 16px rgba(255, 255, 255, 0.2),
+                    0 0 40px rgba(0, 0, 0, 0.3);
+            }
+            50% { 
+                transform: translateY(-20px); 
+                box-shadow: 
+                    0 0 0 10px rgba(255, 255, 255, 0.4),
+                    0 0 0 20px rgba(255, 255, 255, 0.3),
+                    0 0 60px rgba(0, 0, 0, 0.4);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                box-shadow: 
+                    inset 0 0 20px rgba(255, 255, 255, 0.8),
+                    inset 0 0 40px rgba(255, 255, 255, 0.5);
+            }
+            50% { 
+                box-shadow: 
+                    inset 0 0 30px rgba(255, 255, 255, 0.9),
+                    inset 0 0 60px rgba(255, 255, 255, 0.6);
+            }
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Textes */
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease forwards;
+        }
+        
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 400;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .typed-text {
+            min-height: 4rem;
+            margin-bottom: 2.5rem;
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 500;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Boutons */
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 1s ease 0.9s forwards;
+            opacity: 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background: white;
+            color: #2C3E50;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(107, 177, 216, 0.3), rgba(255, 255, 255, 0.1));
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn:hover::before {
+            opacity: 1;
+        }
+        
+        .btn-primary:hover {
+            background: #ffd700;
+        }
+        
+        .btn-secondary:hover {
+            background: #00ff7f;
+        }
+        
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll down */
+        .scroll-down {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            color: white;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-20px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+        }
+
+        /* Effets de fond supplémentaires */
+        .bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: floatBubble 15s infinite ease-in-out;
+        }
+        
+        @keyframes floatBubble {
+            0% { 
+                transform: translateY(0) translateX(0) scale(1); 
+                opacity: 0.1;
+            }
+            50% { 
+                transform: translateY(-100px) translateX(50px) scale(1.2); 
+                opacity: 0.2;
+            }
+            100% { 
+                transform: translateY(0) translateX(100px) scale(1); 
+                opacity: 0.1;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer-logo img {
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--accent-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-blue);
+        }
+
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon-footer {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--light-bg);
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon-footer:hover {
+            background: var(--accent-blue);
+            color: white;
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            color: var(--text);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 2.5rem;
+            }
+            
+            .hero-content {
+                text-align: center;
+                max-width: 100%;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-image-container {
+                width: 220px;
+                height: 220px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero h2 {
+                font-size: 1.2rem;
+            }
+            
+            .typed-text {
+                font-size: 1.4rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: var(--navbar-gradient);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+            }
+            
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            
+            .burger {
+                display: block;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-image-container {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h2 {
+                font-size: 1rem;
+            }
+            
+            .typed-text {
+                font-size: 1.2rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Préloader -->
+    <div class="preloader">
+        <div class="preloader-logo">
+            <div class="logo-letter">M</div>
+            <div class="logo-letter">V</div>
+        </div>
+    </div>
+
+    <!-- Barre de progression du scroll -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="index.html" class="logo">
+            <img src="assets/images/portraits/maelle-profil.png" alt="Maëlle Vignon">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Accueil</a>
+            <a href="parcours.html">Parcours</a>
+            <a href="realisations.html">Réalisations</a>
+            <a href="contact.html">Contact</a>
+        </div>
+        <div class="burger">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section optimisée -->
+    <section class="hero" id="home">
+        <!-- Effets de fond -->
+        <div class="bubbles">
+            <div class="bubble" style="width: 80px; height: 80px; top: 10%; left: 20%; animation-duration: 18s;"></div>
+            <div class="bubble" style="width: 120px; height: 120px; top: 70%; left: 80%; animation-duration: 22s; animation-delay: 2s;"></div>
+            <div class="bubble" style="width: 60px; height: 60px; top: 40%; left: 50%; animation-duration: 15s; animation-delay: 4s;"></div>
+            <div class="bubble" style="width: 100px; height: 100px; top: 20%; left: 70%; animation-duration: 20s; animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="hero-container">
+            <div class="hero-image-container">
+                <img src="assets/images/portraits/maelle-fenetre.png" alt="Maëlle Vignon" class="hero-image">
+                <div class="frame-effect"></div>
+                <div class="light-effect"></div>
+            </div>
+            
+            <div class="hero-content">
+                <h1>Maëlle Vignon</h1>
+                <h2>Développement territorial & stratégie commerciale</h2>
+                <div class="typed-text" id="typedText"></div>
+                
+                <div class="cta-buttons">
+                    <a href="realisations.html" class="btn btn-primary">
+                        <i class="fas fa-folder-open"></i>
+                        Voir mes projets
+                    </a>
+                    <a href="assets/cv/maelle-vignon-cv.pdf" download class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Télécharger mon CV
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="scroll-down" id="scrollDown">
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="assets/images/portraits/maelle-profil.png" alt="Maëlle Vignon">
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Accueil</a>
+                <a href="parcours.html">Parcours</a>
+                <a href="realisations.html">Réalisations</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-links-footer">
+                <a href="#" class="social-icon-footer"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon-footer"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon-footer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="copyright">
+                © 2023 Maëlle Vignon. Tous droits réservés.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        // Initialisation des animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Typed.js pour l'animation du texte
+            const typed = new Typed('#typedText', {
+                strings: ["Révéler le potentiel de chaque territoire par l’humain et l’écoute"],
+                typeSpeed: 50,
+                startDelay: 500,
+                showCursor: true,
+                cursorChar: '|',
+                loop: false
+            });
+            
+            // Barre de progression du scroll
+            window.addEventListener('scroll', function() {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                document.getElementById('progressBar').style.width = scrolled + '%';
+                
+                // Changement de la navbar au scroll
+                if (window.scrollY > 100) {
+                    document.getElementById('navbar').classList.add('scrolled');
+                } else {
+                    document.getElementById('navbar').classList.remove('scrolled');
+                }
+            });
+            
+            // Animation du scroll down
+            document.getElementById('scrollDown').addEventListener('click', function() {
+                window.scrollTo({
+                    top: window.innerHeight,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Menu burger (pour mobile)
+            const burger = document.querySelector('.burger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            if (burger) {
+                burger.addEventListener('click', () => {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Préloader
+            window.addEventListener('load', function() {
+                const preloader = document.querySelector('.preloader');
+                setTimeout(() => {
+                    preloader.style.opacity = '0';
+                    preloader.style.visibility = 'hidden';
+                }, 1000);
+            });
+        });
+    </script>
+</body>
+</html>
